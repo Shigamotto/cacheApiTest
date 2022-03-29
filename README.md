@@ -2,7 +2,7 @@
 
 This project created for a Interview Test Task.
 
-###Following features have to be implemented for the cache:
+### Following features have to be implemented for the cache:
 
 - Add an endpoint that returns the cached data for a given key.
     - If the key is not found in the cache:

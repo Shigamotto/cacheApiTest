@@ -1,0 +1,28 @@
+version: '3'
+services:
+    mongodb:
+        image: mongo:5.0.6
+        container_name: ${PROJECT_NAME?}_mongodb
+        restart: always
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_DATABASE: $MONGO_DB_NAME
+            MONGO_INITDB_ROOT_USERNAME: $MONGO_DB_USERNAME
+            MONGO_INITDB_ROOT_PASSWORD: $MONGO_DB_PASSWORD
+        volumes:
+            - "./_mongo_db:/data/db"
+
+    back:
+        container_name: ${PROJECT_NAME?}_back
+        build:
+            context: docker
+            dockerfile: ./back/Dockerfile
+        env_file: .env
+        ports:
+            - "8080:8080"
+        volumes:
+            - "./app:/home/projects/cacheApi/.www"
+        privileged: true
+        depends_on:
+            - mongodb
